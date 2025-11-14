@@ -1,33 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Youth Serving Christ | Home</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Youth Registration System</title>
+  <link rel="stylesheet" href="register.css" />
 </head>
+
 <body>
-  <header class="hero-section">
-    <nav>
-      <h1 class="logo">YSC<span>Portal</span></h1>
-      <ul class="nav-links">
-        <li><a href="about.html">About</a></li>
-        <li><a href="admin.html">Admin Login</a></li>
-      </ul>
-    </nav>
+  <!-- REGISTRATION FORM -->
+  <div class="container">
+    <h1>YSC Registration Form</h1>
+    <form id="youthForm">
 
-    <div class="hero-content">
-      <h2>Welcome to Youth Serving Christ</h2>
-      <p>Together We Journey Together We Serve.</p>
-      <a href="register.html" class="btn">Register Today</a>
-    </div>
-  </header>
+      <label>Full Name</label>
+      <input type="text" id="name" placeholder="Enter full name" required>
 
-  <footer>
-    <p>© 2025 Youth Serving Christ | Built with ❤️ by SmartFix Studio & Felie 
+      <label>Gender</label>
+      <select id="gender" required>
+        <option value="">Select gender</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
 
-    </p>
-  </footer>
+      <label>Age</label>
+      <input type="number" id="age" placeholder="Enter age" required>
+
+      <label>Outstation</label>
+      <select id="outstation" required>
+        <option value="">Select outstation</option>
+        <option>Sacred Heart Ngando</option>
+        <option>St. Vincent Pallotti</option>
+        <option>St. Francis of Assisi</option>
+        <option>Ble Elisabetta Sanna</option>
+      </select>
+
+      <label>Next of Kin</label>
+      <input type="text" id="kin" placeholder="Enter next of kin name" required>
+
+      <label>Contact</label>
+      <input type="tel" id="contact" placeholder="Enter phone number" required>
+
+      <button type="submit">Register</button>
+      <BR>
+        <button type="button" onclick="window.location.href='index.html'">Home</button>
+      <p id="msg"></p>
+    </form>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div id="successModal" class="modal">
+    <h3>Registration saved ✅</h3>
+    <p>Thank you! Your details have been recorded.</p>
+    <button id="closeModalBtn">OK</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
