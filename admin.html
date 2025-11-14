@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Youth Registrations</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+ <div id="authSection" class="card">
+  <p>Enter admin token to view registrations:</p>
+  <div class="auth-inputs">
+    <input id="tokenInput" type="password" placeholder="Admin token" />
+    <button id="authBtn">View Registrations</button>
+  </div>
+  <p id="authMsg"></p>
+</div>
+
+
+    <div id="tableSection" class="card hidden">
+      <button id="refreshBtn">Refresh</button>
+      <table id="registrationsTable">
+       <thead>
+  <tr>
+    <th>#</th>
+    <th>Full Name</th>
+    <th>Gender</th>
+    <th>Age</th>
+    <th>Outstation</th>
+    <th>Next of Kin</th>
+    <th>Contact</th>
+  </tr>
+</thead>
+
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Admin page JS ----------
+    const ADMIN_API_URL = "https://script.google.com/macros/s/AKfycbzlwbmA3bNmphnxuGwu1xqQLWfoWm0fpmy9nJokTmpSW9ZE3KcRjNQ6XxFmIxvh6pt3/exec"; // set Apps Script URL here
+
+    const authSection = document.getElementById('authSection');
+    const tableSection = document.getElementById('tableSection');
+    const authMsg = document.getElementById('authMsg');
+    const tokenInput = document.getElementById('tokenInput');
+    const authBtn = document.getElementById('authBtn');
+    const registrationsTableBody = document.querySelector('#registrationsTable tbody');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    function showMessage(el, txt, color = 'black') {
+      el.textContent = txt;
+      el.style.color = color;
+    }
+
+    async function fetchRegistrations(token) {
+      try {
+        showMessage(authMsg, '⏳ Fetching...', 'black');
+        const resp = await fetch(ADMIN_API_URL + '?token=' + encodeURIComponent(token));
+        const json = await resp.json();
+
+        if (json.result !== 'success') {
+          throw new Error(json.message || 'Unauthorized or error');
+        }
+
+        // populate table
+        registrationsTableBody.innerHTML = '';
+        json.data.forEach((row, i) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${row.name}</td>
+            <td>${row.gender}</td>
+            <td>${row.age}</td>
+            <td>${row.outstation}</td>
+            <td>${row.kin}</td>
+            <td>${row.contact}</td>
+          `;
+          registrationsTableBody.appendChild(tr);
+        });
+
+        showMessage(authMsg, '✅ Loaded ' + json.data.length + ' records', 'green');
+        tableSection.classList.remove('hidden');
+      } catch (err) {
+        showMessage(authMsg, '❌ ' + err.message, 'red');
+      }
+    }
+
+    authBtn.addEventListener('click', () => {
+      const token = tokenInput.value.trim();
+      if (!token) {
+        showMessage(authMsg, 'Enter token', 'orange');
+        return;
+      }
+      fetchRegistrations(token);
+    });
+
+    refreshBtn.addEventListener('click', () => {
+      const token = tokenInput.value.trim();
+      if (!token) {
+        showMessage(authMsg, 'Enter token', 'orange');
+        return;
+      }
+      fetchRegistrations(token);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | YSC</title>
+
+  <style>
+   /* ---------- Global Styles ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #08dddd, #6a11cb);
+  color: #fff;
+  padding: 30px;
+  min-height: 100vh;
+}
+
+/* ---------- NAVIGATION ---------- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #111;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+nav .logo span {
+  color: #4db8ff;
+  font-weight: 700;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #4db8ff;
+}
+
+/* ---------- SLIDER ---------- */
+.slider-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 50px auto 30px;
+  text-align: center;
+}
+
+.slide-frame {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.slide-frame:hover {
+  transform: scale(1.02);
+}
+
+.slide-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.caption {
+  margin-top: 15px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111;
+}
+
+/* ---------- INFO SECTION ---------- */
+.info-section {
+  margin-top: 50px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.info-section h2 {
+  font-size: 2rem;
+  color: #111;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.info-section h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #4db8ff;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.info-section p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: #000000;
+}
+
+/* ---------- SOCIAL ICONS ---------- */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 40px 0;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.social-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.social-btn.youtube {
+  background: #000000;
+  color: #fff;
+}
+
+.social-btn.youtube:hover {
+  background: #ff6b6b;
+  transform: scale(1.05);
+}
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.social-btn svg {
+  display: block;
+}
+
+.social-btn.tiktok {
+  background-color: #010101;
+  color: white;
+}
+
+.social-btn.tiktok:hover {
+  transform: scale(1.1);
+  background-color: #69C9D0; /* TikTok cyan hover */
+  color: rgb(255, 0, 0);
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  margin-top: 50px;
+  text-align: center;
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* ---------- TYPEWRITER EFFECT ---------- */
+#Motto {
+  font-weight: 600;
+  color: #4db8ff;
+  font-size: 1.2rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .slider-container {
+    width: 95%;
+  }
+  
+  .slide-frame {
+    height: 220px;
+  }
+
+  .caption {
+    font-size: 1.1rem;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .social-btn {
+    font-size: 1rem;
+    padding: 8px 12px;
+  }
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <h1 class="logo">YSC<span>Portal</span></h1>
+    <ul class="nav-links">
+      <li><a href="index.html">Back Home</a></li>
+     
+    </ul>
+  </nav>
+<!-- ONE SLIDER FRAME -->
+<div class="slider-container">
+  <div class="slide-frame">
+    <img id="slideImage" src="images/1.jpg" alt="Slide">
+  </div>
+  <p class="caption" id="slideCaption">Our Mission</p>
+</div>
+
+<section class="info-section">
+  <h2>Our Motto</h2>
+  <p id="motto"></p> 
+
+</section>
+
+<script>
+// Typewriter effect
+const mottoText = "Together We Journey. Together We Serve.";
+const mottoElement = document.getElementById("motto");
+let i = 0;
+
+function typeMotto() {
+  if (i < mottoText.length) {
+    mottoElement.innerHTML += mottoText.charAt(i);
+    i++;
+    setTimeout(typeMotto, 150); // speed: 150ms per character
+  }
+}
+
+// Start typing on page load
+window.onload = typeMotto;
+</script>
+ 
+
+ <!-- SOCIAL MEDIA -->
+<div class="social-icons">
+  <a href="https://youtube.com/@sacredheartparishyouthchoir" target="_blank" class="social-btn youtube">
+    <!-- YouTube SVG Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" viewBox="0 0 24 24">
+      <path d="M23.499 6.186c-.273-1.02-1.078-1.825-2.097-2.097C19.864 3.5 12 3.5 12 3.5s-7.864 0-9.402.589c-1.02.273-1.824 1.078-2.097 2.097C0 7.724 0 12 0 12s0 4.276.501 5.814c.273 1.02 1.077 1.824 2.097 2.097C4.136 20.5 12 20.5 12 20.5s7.864 0 9.402-.589c1.02-.273 1.824-1.077 2.097-2.097.501-1.538.501-5.814.501-5.814s0-4.276-.501-5.814zM9.75 15.02v-6.04L15.5 12l-5.75 3.02z"/>
+    </svg>
+    YSC YouTube Channel.
+  </a>
+<a href="https://www.tiktok.com/search?q=kwaya%20ya%20vijana%20ysc&t=1763113944061``/" target="_blank" class="social-btn tiktok">
+  <!-- TikTok Icon SVG -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="30" height="30">
+    <path fill="#69C9D0" d="M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0z"/>
+    <path fill="#EE1D52" d="M154.3 168.2c-6.6 0-13-1.9-18.5-5.2v-55.1h-19v-25.8h19v-35.3h25.3v35.2c7.2 2.3 14.7 3.7 22.4 4v25.9c-8.4-.1-16.6-1.9-24.2-5v40.3z"/>
+    <path fill="#000" d="M125 0C56 0 0 56 0 125s56 125 125 125 125-56 125-125S194 0 125 0z"/>
+  </svg>
+  YSC TikTok Channel
+</a>
+
+</div>
+
+<BR>
+
+  <footer>
+    © 2025 Youth Serving Christ | Built by SmartFix Studio & Felie
+  </footer>
+
+  <script>const slides = [
+  { src: "images/1.jpg", caption: "Our Mission" },
+  { src: "images/2.jpg", caption: "Our Vision" },
+  { src: "images/3.jpg", caption: "Our Faith" },
+];
+
+let index = 0;
+
+const slideImage = document.getElementById("slideImage");
+const slideCaption = document.getElementById("slideCaption");
+
+setInterval(() => {
+  index = (index + 1) % slides.length;
+  slideImage.src = slides[index].src;
+  slideCaption.textContent = slides[index].caption;
+}, 4000);
+
+  </script>
+  
+
+</body>
+</html>
