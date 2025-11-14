@@ -1,34 +1,31 @@
-document.getElementById("youthForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+document.getElementById("youthForm").addEventListener("submit", function(event){
+  event.preventDefault();
 
-    const data = {
-        name: document.getElementById("name").value,
-        gender: document.getElementById("gender").value,
-        age: document.getElementById("age").value,
-        outstation: document.getElementById("outstation").value,
-        kin: document.getElementById("kin").value,
-        contact: document.getElementById("contact").value
-    };
+  const data = {
+    name: document.getElementById("name").value,
+    gender: document.getElementById("gender").value,
+    age: document.getElementById("age").value,
+    outstation: document.getElementById("outstation").value,
+    kin: document.getElementById("kin").value,
+    contact: document.getElementById("contact").value
+  };
 
-    fetch("https://script.google.com/macros/s/AKfycbxPFio2UftR7mn3b7VItPFJyDweQDx9hcy_lS9uHg1sgGdLRpOheZo_VR5V_SO5avUKIQ/exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(res => res.json())
-    .then(response => {
-        document.getElementById("msg").innerText = "Saved successfully!";
-        document.getElementById("successModal").style.display = "block";
-        document.getElementById("youthForm").reset();
-    })
-    .catch(err => {
-        document.getElementById("msg").innerText = "Error saving!";
-    });
+  fetch("https://script.google.com/macros/s/AKfycbw29sh9miicDFBJI9kE62RGNfqfhP6Jix0XUttNy7HZmaThId_aOIU0FkfTskMFB5LsyA/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    // SHOW SUCCESS MODAL
+    document.getElementById("successModal").style.display = "block";
+    document.getElementById("youthForm").reset();
+  })
+  .catch(err => alert("Error: " + err));
 });
 
-document.getElementById("closeModalBtn").addEventListener("click", function () {
-    document.getElementById("successModal").style.display = "none";
+document.getElementById("closeModalBtn").addEventListener("click", function(){
+  document.getElementById("successModal").style.display = "none";
 });
-
