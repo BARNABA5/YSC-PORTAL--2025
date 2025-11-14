@@ -10,7 +10,7 @@ document.getElementById("youthForm").addEventListener("submit", function (e) {
         contact: document.getElementById("contact").value
     };
 
-    fetch("YOUR_WEB_APP_URL_HERE", {
+    fetch("https://script.google.com/macros/s/AKfycbxPFio2UftR7mn3b7VItPFJyDweQDx9hcy_lS9uHg1sgGdLRpOheZo_VR5V_SO5avUKIQ/exec", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -31,3 +31,4 @@ document.getElementById("youthForm").addEventListener("submit", function (e) {
 document.getElementById("closeModalBtn").addEventListener("click", function () {
     document.getElementById("successModal").style.display = "none";
 });
+
