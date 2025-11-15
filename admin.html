@@ -23,7 +23,9 @@
   </div>
 
   <div class="card" id="tableSection" style="display:none;">
-    <button id="refreshBtn">Refresh</button>
+   <button id="refreshBtn">Refresh</button>
+<button id="downloadBtn">Download CSV</button>
+
     <table>
       <thead>
         <tr>
@@ -99,6 +101,47 @@
       if(!token) return showMessage("Enter token", "orange");
       fetchRegistrations(token);
     });
+    function convertToCSV(objArray) {
+  const array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  let str = 'Timestamp,Name,Gender,Age,Outstation,Next of Kin,Kin Contact,Contact\n';
+
+  for (let i = 0; i < array.length; i++) {
+    let line = '';
+    for (let index in array[i]) {
+      if (line !== '') line += ',';
+      // Escape commas in data
+      line += `"${array[i][index]}"`;
+    }
+    str += line + '\n';
+  }
+  return str;
+}
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  const token = tokenInput.value.trim();
+  if (!token) return showMessage("Enter token to download", "orange");
+
+  fetch(`${ADMIN_API_URL}?token=${encodeURIComponent(token)}`)
+    .then(res => res.json())
+    .then(json => {
+      if (json.result !== "success") throw new Error(json.message || "Unauthorized");
+      const csv = convertToCSV(json.data);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `YSC_Registrations_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showMessage("CSV downloaded ✅", "green");
+    })
+    .catch(err => {
+      showMessage(err.message, "red");
+    });
+});
+
   </script>
 </body>
 </html>
