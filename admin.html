@@ -1,107 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin - Youth Registrations</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - YSC Registrations</title>
   <style>
-    body { font-family: Arial; margin: 20px; background: #3858b3; }
-    .card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
-    .hidden { display: none; }
+    body { font-family: Arial; margin: 20px; background: #3858b3; color: #fff; }
+    .card { background: #fff; color: #000; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
     table { width: 100%; border-collapse: collapse; margin-top: 10px; }
     th, td { padding: 10px; border: 1px solid #ddd; text-align: center; }
     th { background: #0077cc; color: #fff; }
-    button { padding: 8px 15px; margin-top: 5px; cursor: pointer; border: none; background: #0077cc; color: #fff; border-radius: 5px; }
+    button { padding: 8px 15px; margin: 5px 0; cursor: pointer; border: none; background: #0077cc; color: #fff; border-radius: 5px; }
     button:hover { background: #005fa3; }
-    #authMsg { margin-top: 10px; font-weight: bold; }
   </style>
 </head>
 <body>
-
-  <!-- Admin Authentication -->
-  <div id="authSection" class="card">
-    <p>Enter admin token to view registrations:</p>
-    <input id="tokenInput" type="password" placeholder="Admin token" />
+  <div class="card">
+    <h2>Admin Login</h2>
+    <input type="password" id="tokenInput" placeholder="Enter admin token">
     <button id="authBtn">View Registrations</button>
     <p id="authMsg"></p>
   </div>
 
-  <!-- Registrations Table -->
-  <div id="tableSection" class="card hidden">
+  <div class="card" id="tableSection" style="display:none;">
     <button id="refreshBtn">Refresh</button>
-    <table id="registrationsTable">
+    <table>
       <thead>
         <tr>
           <th>#</th>
-          <th>Full Name</th>
+          <th>Timestamp</th>
+          <th>Name</th>
           <th>Gender</th>
           <th>Age</th>
           <th>Outstation</th>
           <th>Next of Kin</th>
+          <th>Next of Kin Contact</th>
           <th>Contact</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id="registrationsBody"></tbody>
     </table>
   </div>
 
   <script>
-    const ADMIN_API_URL = "https://script.google.com/macros/s/AKfycbwsctRGa4_JP_MpGw5yrcuytSm1B2XnB1L9PC7eNCH2KKAsLhvg7JKeDkF9N-psaPdWtw/exec"; // Replace with your Apps Script URL
+    const ADMIN_API_URL = "https://script.google.com/macros/s/AKfycbw9EW7KR2eC_kNxrrqPnk6TKfIT9LmDUYSdlns52C-uA591kVyAgQyaR1UuKHNuacZfTA/exec";
+    const authMsg = document.getElementById("authMsg");
+    const tokenInput = document.getElementById("tokenInput");
+    const authBtn = document.getElementById("authBtn");
+    const tableSection = document.getElementById("tableSection");
+    const registrationsBody = document.getElementById("registrationsBody");
+    const refreshBtn = document.getElementById("refreshBtn");
 
-    const authMsg = document.getElementById('authMsg');
-    const tokenInput = document.getElementById('tokenInput');
-    const authBtn = document.getElementById('authBtn');
-    const tableSection = document.getElementById('tableSection');
-    const registrationsTableBody = document.querySelector('#registrationsTable tbody');
-    const refreshBtn = document.getElementById('refreshBtn');
-
-    function showMessage(txt, color='black') {
+    function showMessage(txt, color='black'){
       authMsg.textContent = txt;
       authMsg.style.color = color;
     }
 
-    async function fetchRegistrations(token) {
+    async function fetchRegistrations(token){
+      showMessage("Fetching...", "black");
       try {
-        showMessage('⏳ Fetching...', 'black');
         const resp = await fetch(`${ADMIN_API_URL}?token=${encodeURIComponent(token)}`);
         const json = await resp.json();
 
-        if (json.result !== 'success') throw new Error(json.message || 'Unauthorized');
+        if(json.result !== "success") throw new Error(json.message || "Unauthorized");
 
-        registrationsTableBody.innerHTML = '';
+        registrationsBody.innerHTML = "";
         json.data.forEach((row, i) => {
-          const tr = document.createElement('tr');
+          const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td>${i + 1}</td>
+            <td>${i+1}</td>
+            <td>${row.timestamp}</td>
             <td>${row.name}</td>
             <td>${row.gender}</td>
             <td>${row.age}</td>
             <td>${row.outstation}</td>
             <td>${row.kin}</td>
+            <td>${row.kinContact}</td>
             <td>${row.contact}</td>
           `;
-          registrationsTableBody.appendChild(tr);
+          registrationsBody.appendChild(tr);
         });
 
-        showMessage(`✅ Loaded ${json.data.length} records`, 'green');
-        tableSection.classList.remove('hidden');
-      } catch (err) {
-        showMessage(`❌ ${err.message}`, 'red');
+        tableSection.style.display = "block";
+        showMessage(`Loaded ${json.data.length} records`, "green");
+      } catch(err) {
+        showMessage(err.message, "red");
       }
     }
 
-    authBtn.addEventListener('click', () => {
+    authBtn.addEventListener("click", () => {
       const token = tokenInput.value.trim();
-      if (!token) return showMessage('Enter token', 'orange');
+      if(!token) return showMessage("Enter token", "orange");
       fetchRegistrations(token);
     });
 
-    refreshBtn.addEventListener('click', () => {
+    refreshBtn.addEventListener("click", () => {
       const token = tokenInput.value.trim();
-      if (!token) return showMessage('Enter token', 'orange');
+      if(!token) return showMessage("Enter token", "orange");
       fetchRegistrations(token);
     });
   </script>
-
 </body>
 </html>
